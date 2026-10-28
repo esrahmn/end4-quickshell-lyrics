@@ -34,15 +34,18 @@ https://github.com/user-attachments/assets/1fa8a440-ba8c-489c-9357-2a0dd396f5d8
 
 If your Quickshell config lives somewhere else, change the destination path in the command above.
 
-## Credits
 <div align="center">
-| Project                                                       | Author                                            |
-| ------------------------------------------------------------- | ------------------------------------------------- |
-| [end-4 dots-hyprland](https://github.com/end-4/dots-hyprland) | [end-4](https://github.com/end-4)                 |
-| [Lrclib](https://lrclib.net/)                                 | [tranxuanthang](https://github.com/tranxuanthang) |
-</div>
+
+## Credits
+
+| Project | Author |
+|:-------:|:------:|
+| [end-4 dots-hyprland](https://github.com/end-4/dots-hyprland.git) | [end-4](https://github.com/end-4) |
+| [Lrclib](https://lrclib.net/) | [tranxuanthang](https://github.com/tranxuanthang) |
 
 This repo only changes the media-related part of the original config. Check the original project for its license and attribution requirements.
+
+</div>
 
 ## License
 
