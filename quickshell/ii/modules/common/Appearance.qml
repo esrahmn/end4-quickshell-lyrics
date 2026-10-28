@@ -15,17 +15,16 @@ Singleton {
     property QtObject sizes
     property string syntaxHighlightingTheme
 
-    // Transparency. The quadratic functions were derived from analysis of hand-picked transparency values.
     ColorQuantizer {
         id: wallColorQuant
         property string wallpaperPath: Config.options.background.wallpaperPath
         property bool wallpaperIsVideo: wallpaperPath.endsWith(".mp4") || wallpaperPath.endsWith(".webm") || wallpaperPath.endsWith(".mkv") || wallpaperPath.endsWith(".avi") || wallpaperPath.endsWith(".mov")
         source: Qt.resolvedUrl(wallpaperIsVideo ? Config.options.background.thumbnailPath : Config.options.background.wallpaperPath)
-        depth: 0 // 2^0 = 1 color
+        depth: 0
         rescaleSize: 10
     }
     property real wallpaperVibrancy: (wallColorQuant.colors[0]?.hslSaturation + wallColorQuant.colors[0]?.hslLightness) / 2
-    property real autoBackgroundTransparency: { // y = 0.5768x^2 - 0.759x + 0.2896
+    property real autoBackgroundTransparency: {
         let x = wallpaperVibrancy
         let y = 0.5768 * (x * x) - 0.759 * (x) + 0.2896
         return Math.max(0, Math.min(0.22, y)) - 0.12 * (m3colors.darkmode ? 0 : 1)
@@ -230,8 +229,8 @@ Singleton {
             property var numbers: ({
                 "wght": 450,
             })
-            property var title: ({ // Slightly bold weight for title
-                "wght": 550, // Weight (Lowered to compensate for increased grade)
+            property var title: ({
+                "wght": 550,
             })
         }
         property QtObject pixelSize: QtObject {
@@ -391,8 +390,8 @@ Singleton {
         property real barCenterSideModuleWidth: Config.options?.bar.verbose ? 360 : 140
         property real barCenterSideModuleWidthShortened: 280
         property real barCenterSideModuleWidthHellaShortened: 190
-        property real barShortenScreenWidthThreshold: 1200 // Shorten if screen width is at most this value
-        property real barHellaShortenScreenWidthThreshold: 1000 // Shorten even more...
+        property real barShortenScreenWidthThreshold: 1200
+        property real barHellaShortenScreenWidthThreshold: 1000
         property real elevationMargin: 10
         property real fabShadowRadius: 5
         property real fabHoveredShadowRadius: 7

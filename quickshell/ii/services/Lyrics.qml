@@ -9,11 +9,6 @@ import qs.modules.common
 import qs.modules.common.functions
 import "LyricsUtils.js" as LyricsUtils
 
-/**
- * Lirik berwaktu untuk lagu yang sedang diputar (dari MPRIS), diambil dari LRCLIB (lrclib.net).
- * Yang dikirim ke server: judul, artis, album, dan durasi lagu. Hasilnya di-cache di
- * ~/.cache/ii-lyrics/ supaya lagu yang sama tidak diminta dua kali.
- */
 Singleton {
     id: root
 
@@ -21,22 +16,18 @@ Singleton {
     readonly property MprisPlayer player: MprisController.activePlayer
     readonly property bool isPlaying: player?.isPlaying ?? false
 
-    property var lines: []              // [{ t: detik, text: string }]
+    property var lines: []
     property int currentIndex: -1
     property string fetchStatus: "idle"      // idle | loading | found | notfound | error
     readonly property bool hasLyrics: lines.length > 0
     readonly property string currentLine: (currentIndex >= 0 && currentIndex < lines.length) ? lines[currentIndex].text : ""
 
-    // Kunci lagu; berubah saat lagu ganti atau durasi baru diketahui.
     readonly property string trackKey: `${player?.trackArtist ?? ""}|${player?.trackTitle ?? ""}|${Math.round(player?.length ?? 0)}`
     onTrackKeyChanged: debounce.restart()
     onEnabledChanged: debounce.restart()
 
     function load() {
-        // dummy: memaksa singleton dibuat saat shell mulai (dipanggil dari shell.qml)
     }
-
-    // Nilai awal trackKey tidak memicu onTrackKeyChanged, jadi picu manual saat dibuat
     Component.onCompleted: debounce.restart()
 
     property string cachePath: ""
@@ -93,7 +84,6 @@ Singleton {
         if (idx !== currentIndex) currentIndex = idx;
     }
 
-    // Posisi pemutaran tidak diperbarui otomatis oleh MPRIS, jadi dipancing berkala (seperti widget Media).
     Timer {
         interval: 250
         repeat: true
@@ -108,8 +98,6 @@ Singleton {
         function onPositionChanged() { root.updateIndex(); }
     }
 
-    // Tahap 1: cache -> /api/get (pencocokan tepat), lalu ulangi tanpa album.
-    // Argumen: $1 judul, $2 artis, $3 album, $4 durasi (detik), $5 path cache.
     readonly property string getScript: [
         'T="$1"; A="$2"; AL="$3"; D="$4"; cache="$5"',
         'if [ -s "$cache" ]; then cat "$cache"; exit 0; fi',
@@ -125,7 +113,6 @@ Singleton {
         'if [ -n "$res" ]; then mkdir -p "$(dirname "$cache")"; printf "%s" "$res" > "$cache"; printf "%s" "$res"; fi'
     ].join("\n")
 
-    // Tahap 2 (cadangan): /api/search dengan judul dibersihkan dan artis pertama.
     readonly property string searchScript: [
         'curl -sfG --max-time 8 -A "ii-lyrics-bar/1.0" "https://lrclib.net/api/search"',
         '  --data-urlencode "track_name=$1" --data-urlencode "artist_name=$2"'
@@ -145,7 +132,6 @@ Singleton {
                         console.error(`[Lyrics] ${e.message}`);
                     }
                 }
-                // Tidak ketemu lewat /get -> coba /search
                 const title = LyricsUtils.cleanTitleForSearch(root.player?.trackTitle ?? "");
                 const artist = LyricsUtils.firstArtist(root.player?.trackArtist ?? "");
                 searchProc.command = ["bash", "-c", root.searchScript, "bash", title.length > 0 ? title : (root.player?.trackTitle ?? ""), artist];

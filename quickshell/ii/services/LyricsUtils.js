@@ -1,9 +1,5 @@
 .pragma library
 
-// Fungsi murni untuk lirik berwaktu (format LRC). Dipisah dari QML supaya mudah diuji.
-
-// "[01:23.45] baris lirik"  ->  [{ t: 83.45, text: "baris lirik" }, ...]
-// Satu baris boleh punya beberapa stempel waktu: "[00:10.00][01:05.50] chorus"
 function parseLrc(text) {
     var out = [];
     if (!text) return out;
@@ -27,7 +23,6 @@ function parseLrc(text) {
     return out;
 }
 
-// Indeks baris terakhir yang waktunya <= pos. -1 kalau belum sampai baris pertama.
 function findIndex(lines, pos) {
     var lo = 0, hi = lines.length - 1, ans = -1;
     while (lo <= hi) {
@@ -38,7 +33,7 @@ function findIndex(lines, pos) {
     return ans;
 }
 
-// "Song - Remastered 2011", "Song (feat. X)", "Song [Remix]"  ->  "Song"
+
 function cleanTitleForSearch(title) {
     var s = String(title || "");
     s = s.replace(/\s*[\(\[][^\)\]]*[\)\]]/g, "");
@@ -46,12 +41,11 @@ function cleanTitleForSearch(title) {
     return s.trim();
 }
 
-// "A, B", "A & B", "A feat. B"  ->  "A"
+
 function firstArtist(artist) {
     return String(artist || "").split(/\s*(?:,|&|\sfeat\.|\sft\.|\sx\s)\s*/i)[0].trim();
 }
 
-// Dari hasil /api/search: pilih yang punya lirik berwaktu, durasinya paling dekat.
 function pickBest(results, duration) {
     if (!results || !results.length) return null;
     var best = null, bestDiff = Infinity;

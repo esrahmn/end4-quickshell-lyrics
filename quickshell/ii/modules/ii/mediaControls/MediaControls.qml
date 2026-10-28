@@ -125,7 +125,7 @@ Scope {
             ColumnLayout {
                 id: playerColumnLayout
                 anchors.fill: parent
-                spacing: -Appearance.sizes.elevationMargin // Shadow overlap okay
+                spacing: -Appearance.sizes.elevationMargin
 
                 Repeater {
                     model: ScriptModel {

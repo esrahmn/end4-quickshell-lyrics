@@ -23,8 +23,8 @@ Item { // Player instance
     property color artDominantColor: ColorUtils.mix((colorQuantizer?.colors[0] ?? Appearance.colors.colPrimary), Appearance.colors.colPrimaryContainer, 0.8) || Appearance.m3colors.m3secondaryContainer
     property bool downloaded: false
     property list<real> visualizerPoints: []
-    property real maxVisualizerValue: 1000 // Max value in the data points
-    property int visualizerSmoothing: 2 // Number of points to average for smoothing
+    property real maxVisualizerValue: 1000
+    property int visualizerSmoothing: 2
     property real radius
 
     property string displayedArtFilePath: root.downloaded ? Qt.resolvedUrl(artFilePath) : ""
@@ -51,7 +51,7 @@ Item { // Player instance
         }
     }
 
-    Timer { // Force update for revision
+    Timer {
         running: root.player?.playbackState == MprisPlaybackState.Playing
         interval: Config.options.resources.updateInterval
         repeat: true
@@ -65,11 +65,8 @@ Item { // Player instance
             root.artDominantColor = Appearance.m3colors.m3secondaryContainer
             return;
         }
-
-        // Binding does not work in Process
         coverArtDownloader.targetFile = root.artUrl 
         coverArtDownloader.artFilePath = root.artFilePath
-        // Download
         root.downloaded = false
         coverArtDownloader.running = true
     }
@@ -98,7 +95,7 @@ Item { // Player instance
     StyledRectangularShadow {
         target: background
     }
-    Rectangle { // Background
+    Rectangle {
         id: background
         anchors.fill: parent
         anchors.margins: Appearance.sizes.elevationMargin
@@ -188,8 +185,8 @@ Item { // Player instance
                 StyledText {
                     id: trackTitle
                     Layout.fillWidth: true
-                    font.pixelSize: Appearance.font.pixelSize.huge // Naikkan ke huge agar judul menonjol gagah
-                    color: blendedColors.colOnLayer0 // Putih tegas/terang untuk judul utama
+                    font.pixelSize: Appearance.font.pixelSize.huge
+                    color: blendedColors.colOnLayer0
                     elide: Text.ElideRight
                     text: StringUtils.cleanMusicTitle(root.player?.trackTitle) || "Untitled"
                     animateChange: true
@@ -198,21 +195,18 @@ Item { // Player instance
                 StyledText {
                     id: trackArtist
                     Layout.fillWidth: true
-                    font.pixelSize: Appearance.font.pixelSize.small // Naikkan sedikit dari smaller agar terbaca di widget besar
-                    color: blendedColors.colSubtext // Warna abu-abu redup agar membedakan dari judul
+                    font.pixelSize: Appearance.font.pixelSize.small
+                    color: blendedColors.colSubtext
                     elide: Text.ElideRight
                     text: root.player?.trackArtist
                     animateChange: true
                 }
 
-                // Beri jarak ekstra sebelum lirik agar layout tengah terisi proporsional
-                Item { implicitHeight: 6 }
 
+                Item { implicitHeight: 6 }
                 Item {
                     id: lyricsBox
                     Layout.fillWidth: true
-
-                    // Memesan kavling tinggi tetap 75px secara absolut di dalam ColumnLayout
                     Layout.preferredHeight: 75
                     Layout.minimumHeight: 75
                     Layout.maximumHeight: 75
@@ -220,8 +214,6 @@ Item { // Player instance
                     StyledText {
                         id: popupLyrics
                         anchors.fill: parent
-
-                        // Perataan vertikal dikunci di tengah kotak kavling
                         verticalAlignment: Text.AlignVCenter
 
                         font.pixelSize: 20
@@ -234,7 +226,6 @@ Item { // Player instance
                         text: Lyrics.currentLine.length > 0 ? Lyrics.currentLine : "♪"
                         animateChange: true
 
-                        // Animasi transisi teks disetel statis di tempat (0) agar tidak mental liar saat diganti
                         animationDistanceX: 0
                         animationDistanceY: 0
                         visible: Lyrics.hasLyrics
