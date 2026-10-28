@@ -7,6 +7,7 @@ Lyrics come from [LRCLIB](https://lrclib.net/).
 ## Preview
 
 ![Quickshell lyrics preview](assets/preview.png)
+![Synced lyrics in media controls](assets/lyrics.gif)
 
 ## Install
 
