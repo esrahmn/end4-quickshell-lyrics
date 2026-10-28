@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/1fa8a440-ba8c-489c-9357-2a0dd396f5d8
 2. Clone this repo:
 
    ```bash
-   git clone https://github.com/esrahm/end4-quickshell-lyrics.git
+   git clone https://github.com/esrahmn/end4-quickshell-lyrics.git
    ```
 
 3. Copy the `ii` config into your Quickshell config directory. For example, if Quickshell uses `~/.config/quickshell/ii` on your setup:
