@@ -7,7 +7,7 @@ Lyrics come from [LRCLIB](https://lrclib.net/).
 ## Preview
 
 ![Quickshell lyrics preview](assets/preview.png)
-<video src="assets/review.mp4" controls muted width="800"></video>
+![Synced lyrics in media controls](assets/review.mp4)
 
 ## Install
 
