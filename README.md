@@ -32,8 +32,10 @@ If your Quickshell config lives somewhere else, change the destination path in t
 
 ## Credits
 
-- Original Quickshell config: [End-4](https://github.com/end-4/dots-hyprland)
-- Lyrics: [LRCLIB](https://lrclib.net/)
+| Project                                                       | Author                                            |
+| ------------------------------------------------------------- | ------------------------------------------------- |
+| [end-4 dots-hyprland](https://github.com/end-4/dots-hyprland) | [end-4](https://github.com/end-4)                 |
+| [Lrclib](https://lrclib.net/)                                 | [tranxuanthang](https://github.com/tranxuanthang) |
 
 This repo only changes the media-related part of the original config. Check the original project for its license and attribution requirements.
 

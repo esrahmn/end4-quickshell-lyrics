@@ -1,0 +1,40 @@
+# --- VS Code ---
+# lu bisa uncomment 2 baris bawah kalau mau share .vscode/extensions.json ke repo
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+
+# --- Editor lain ---
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- QML / Quickshell build & cache artifacts ---
+*.qmlc
+*.jsc
+*.qmlc.cache
+*.qmlc2.cache
+
+# --- Python (scripts di quickshell/ii/scripts) ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# --- Node (kalau ada tooling) ---
+node_modules/
+
+# --- Logs & temp ---
+*.log
+*.tmp
+/tmp/
+
+# --- Jangan abaikan nested .gitignore milik upstream (shapes widget) ---
+!quickshell/ii/modules/common/widgets/shapes/.gitignore
