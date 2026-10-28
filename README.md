@@ -8,7 +8,9 @@ Lyrics come from [LRCLIB](https://lrclib.net/).
 
 ![Quickshell lyrics preview](assets/preview.png)
 
-<video src="assets/review.mp4" controls muted width="800"></video>
+https://github.com/user-attachments/assets/1fa8a440-ba8c-489c-9357-2a0dd396f5d8
+
+
 
 ## Install
 
